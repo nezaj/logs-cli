@@ -12,4 +12,4 @@ test:
 
 repl:
 	@echo "Starting repl..."
-	node scripts/repl.js
+	$(NODE) scripts/repl.js

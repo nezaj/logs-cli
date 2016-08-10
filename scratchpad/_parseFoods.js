@@ -1,4 +1,3 @@
-/* Bootstrapped repl for rapid prototyping */
 import repl from 'repl';
 
 // Customize repl context
@@ -31,7 +30,7 @@ const foods = fs.readFileSync(filePath, 'utf8')
       .filter(x => shouldIncludeBlock(x, start, end))
       .map(extractDiet).reduce((a,b) => a.concat(b))
       .map(parseDietLine)
-      .reduce(nextDiet, {})
+      .reduce(nextDiet, {});
 
 // Sort by total calories and then alphabetical order for ties
 const sortedFoods = Object.keys(foods)
@@ -40,7 +39,7 @@ const sortedFoods = Object.keys(foods)
             1 : foods[b].calories < foods[a].calories ?
               -1 : foods[a].name > foods[b].name
         })
-        .map(x => foods[x])
+        .map(x => foods[x]);
 
 const pfoods = formatFoods(sortedFoods);
 
@@ -55,7 +54,7 @@ function initializeContext(context) {
 // ---------------------------------------------------------------------------
 const r = repl.start({
   prompt: "parse-logs > ",
-})
+});
 initializeContext(r.context);
 
 r.on('reset', initializeContext);
