@@ -4,8 +4,12 @@ MAKE = make $(MAKEFLAGS)
 NODE_BIN = node_modules/.bin
 NODE = $(NODE_BIN)/babel-node
 
-.PHONY: test
+.PHONY: test repl
 
 test:
 	@echo "Running tests..."
 	$(NODE_BIN)/mocha 'test/**/*.@(js)'
+
+repl:
+	@echo "Starting repl..."
+	node scripts/repl.js
