@@ -12,7 +12,8 @@ const parseLine                 = parseFoodsModule.parseLine;
 const shouldIncludeBlock        = parseFoodsModule.shouldIncludeBlock;
 
 const rootPath = path.join(__dirname, '..');
-const filePath = 'test/data/two_days_output.md';
+const inPath = 'test/data/fitness.md';
+const outPath = 'test/data/fitness_output.md';
 const dataFile = path.join(rootPath, filePath);
 
 // describe('parseFoods', () => {
