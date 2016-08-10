@@ -163,11 +163,5 @@ describe('parseFoods:', () => {
       const end = new Date('01/01/17');
       assert.ok(shouldIncludeBlock(logBlock, start, end));
     })
-    it('returns false if block is not between start and end', () => {
-      const logBlock = '### Day 168 (Sunday): 07/17/17\nWeight:\n*'
-      const start = new Date('01/01/16');
-      const end = new Date('01/01/17');
-      assert.ok(!shouldIncludeBlock(logBlock, start, end));
-    })
   });
 });
