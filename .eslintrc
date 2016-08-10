@@ -1,7 +1,9 @@
 {
-  "parser": "babel-eslint",
-  "extends": ["standard", "standard-react"],
   "env": {
-    "mocha": true
-  }
+    "mocha": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  },
 }

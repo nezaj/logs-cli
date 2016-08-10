@@ -4,7 +4,11 @@ MAKE = make $(MAKEFLAGS)
 NODE_BIN = node_modules/.bin
 NODE = $(NODE_BIN)/babel-node
 
-.PHONY: test repl
+.PHONY: check test repl lint
+
+check:
+	@echo "Running check suite..."
+	$(MAKE) test lint
 
 test:
 	@echo "Running tests..."
@@ -13,3 +17,8 @@ test:
 repl:
 	@echo "Starting repl..."
 	$(NODE) scripts/repl.js
+
+lint:
+	@echo "Running eslint..."
+	$(NODE_BIN)/eslint --ext .js --ext .jsx src
+	$(NODE_BIN)/eslint test

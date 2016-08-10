@@ -1,28 +1,28 @@
-import fs from 'fs';
+import fs from 'fs'
 
-import {isDateBetween, leftpad, rightpad} from './utils';
+import { isDateBetween, leftpad, rightpad } from './utils'
 
 // Main methods
 // ---------------------------------------------------------------------------
 
 /* Parses fitness log to give a summary of foods eaten for the time specified */
-export function parseFoods (filePath, startDate, endDate) {
+export function parseFoods(filePath, startDate, endDate) {
   const foods = fs.readFileSync(filePath, 'utf8')
           .replace(/### Day/gi, '(REPLACE ME)### Day') // label diet blocks
           .split('(REPLACE ME)').slice(1) // Extract diet blocks
           .filter(x => shouldIncludeBlock(x, startDate, endDate))
-          .map(extractDiet).reduce((a,b) => a.concat(b))
+          .map(extractDiet).reduce((a, b) => a.concat(b))
           .map(parseDietLine)
           .reduce(nextDiet, {})
 
-  return formatFoods(sortFoods(foods));
+  return formatFoods(sortFoods(foods))
 }
 
 // Helper methods
 // ---------------------------------------------------------------------------
 
 /* Returns list of diet lines from the diet block of a log entry */
-export function extractDiet (logBlock) {
+export function extractDiet(logBlock) {
   const startIdx = logBlock.indexOf('Diet: ');
   const endIdx = logBlock.indexOf('Exercise: ') - 2;
   return logBlock.slice(startIdx, endIdx)
@@ -33,19 +33,18 @@ export function extractDiet (logBlock) {
                  .reduce((a, b) => a.concat(b)) // flatten foods
 }
 
-export function formatFoods (foods) {
+export function formatFoods(foods) {
   const uniqueFoods = foods.length;
   const longestFood = foods.reduce((a, b) => Math.max(a, b.name.length), 0);
   const totalCount = foods.reduce((a, b) => a + b.count, 0)
   const totalCalories = foods.reduce((a, b) => a + b.calories, 0)
   let runningCalories = []
-  foods.reduce((a, b, i) => runningCalories[i] = a + b.calories, 0);
+  foods.reduce((a, b, i) => runningCalories[i] = a + b.calories, 0)
 
   // Print header
   let printed = `` +
     `Foods: ${uniqueFoods} unique, ${totalCount} total,` +
     ` ${totalCalories} calories`
-  ;
 
   // Print foods
   foods.forEach((x, idx) => printed += `\n` +
@@ -54,7 +53,7 @@ export function formatFoods (foods) {
     ` ${leftpad('(' + x.calories, 5)}),` +
     ` ${leftpad((100 * x.calories / totalCalories).toFixed(1), 5)}%,` +
     ` ${leftpad((100 * runningCalories[idx] / totalCalories).toFixed(1), 6)}%`
-  );
+  )
 
   // Add an extra newLine to mimc EOF behavior
   printed += '\n'
@@ -63,7 +62,7 @@ export function formatFoods (foods) {
 }
 
 /* Returns a brand new diet dictionary with the entry added */
-export function nextDiet (diet, entry) {
+export function nextDiet(diet, entry) {
   let clone = Object.assign({}, diet);
   if (clone[entry.name]) {
     clone[entry.name].count += entry.count;
@@ -81,7 +80,7 @@ export function nextDiet (diet, entry) {
 }
 
 /* Returns dictionary with parsed info from a diet line  */
-export function parseDietLine (line) {
+export function parseDietLine(line) {
   // Defaults
   let nameStr = null;
   let countVal = 1;
@@ -117,7 +116,7 @@ export function parseDietLine (line) {
 }
 
 /* Returns boolean whether log block is the date being evaluated */
-export function shouldIncludeBlock (logBlock, startDate, endDate) {
+export function shouldIncludeBlock(logBlock, startDate, endDate) {
   const logHeader = logBlock.split('\n')[0].match(/\d{2}\/\d{2}\/\d{2}/)
   if (logHeader) {
     const logDate = new Date(logHeader[0]);
@@ -126,7 +125,7 @@ export function shouldIncludeBlock (logBlock, startDate, endDate) {
 }
 
 /* Sort by total calories and then alphabetical order for ties */
-export function sortFoods (foods) {
+export function sortFoods(foods) {
   return Object.keys(foods).sort((a, b) => {
     return foods[b].calories > foods[a].calories ?
       1 : foods[b].calories < foods[a].calories ?
