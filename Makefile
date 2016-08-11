@@ -8,6 +8,7 @@ NODE = $(NODE_BIN)/babel-node
 
 check:
 	@echo "Running check suite..."
+	npm i
 	$(MAKE) test lint
 
 test:

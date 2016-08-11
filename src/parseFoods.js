@@ -30,7 +30,7 @@ export function extractDiet(logBlock) {
                  .map(x => x.replace('* ', '') // replace bullets
                             .split('+') // split lines with multiple foods
                             .map(x => x.trim())) // remove extra white space
-                 .reduce((a, b) => a.concat(b)) // flatten foods
+                 .reduce((a, b) => a.concat(b), []) // flatten foods
 }
 
 export function formatFoods(foods) {
