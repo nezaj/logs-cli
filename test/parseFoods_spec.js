@@ -1,4 +1,4 @@
-import assert from 'assert';
+import {expect} from 'chai';
 
 import {
   extractDiet,
@@ -35,7 +35,7 @@ describe('parseFoods:', () => {
         '* Hung out w/ Jiu-Jitsu crew after, very chill\n' +
         '* Went to bed early\n'
 
-      assert.deepEqual(extractDiet(logBlock), [
+      expect(extractDiet(logBlock)).to.deep.equal([
         '4 Fruit Bars (450)',
         'Fruit Juice (280)',
         'OJ (240)',
@@ -69,7 +69,7 @@ describe('parseFoods:', () => {
         { name: 'Coronita', count: 1, calories: 80, protein: 0 }
       ];
 
-      assert.deepEqual(formatFoods(sortedFoods), '' +
+      expect(formatFoods(sortedFoods)).to.deep.equal('' +
         'Foods: 14 unique, 23 total, 3930 calories\n' +
         '* Turkey Balls      : 2   (700),  17.8%,   17.8%\n' +
         '* Fruit Bars        : 4   (450),  11.5%,   29.3%\n' +
@@ -84,7 +84,8 @@ describe('parseFoods:', () => {
         '* Fruit             : 1   (150),   3.8%,   91.9%\n' +
         '* Protein Powder    : 1   (120),   3.1%,   94.9%\n' +
         '* Wine              : 1   (120),   3.1%,   98.0%\n' +
-        '* Coronita          : 1    (80),   2.0%,  100.0%\n')
+        '* Coronita          : 1    (80),   2.0%,  100.0%\n'
+      );
     });
   });
 
@@ -92,14 +93,14 @@ describe('parseFoods:', () => {
     it('adds entry for new food', () => {
       let diet = {};
       const entry = { name: 'Flaxseed', count: 1, calories: 200, protein: 48 }
-      assert.deepEqual(nextDiet(diet, entry), {
+      expect(nextDiet(diet, entry)).to.deep.equal({
         'Flaxseed': { name: 'Flaxseed', count: 1, calories: 200, protein: 48 }
       });
     });
     it('adds updates entry for existing food', () => {
       let diet = { 'Flaxseed' : { name: 'Flaxseed', count: 1, calories: 200, protein: 48 } }
       const entry = { name: 'Flaxseed', count: 2, calories: 400, protein: 96  }
-      assert.deepEqual(nextDiet(diet, entry), {
+      expect(nextDiet(diet, entry)).to.deep.equal({
         'Flaxseed': { name: 'Flaxseed', count: 3, calories: 600, protein: 144 }
       });
     });
@@ -107,14 +108,14 @@ describe('parseFoods:', () => {
       let diet = {};
       const entry = { name: 'Flaxseed', count: 2, calories: 400, protein: 96  }
       nextDiet(diet, entry)
-      assert.ok(!diet[entry.name])
+      expect(diet).to.be.empty;
     });
   });
 
   describe('parseDietLine --', () => {
     it('Parses food without count and protein', () => {
       const line = 'Flaxseed (200)'
-      assert.deepEqual(parseDietLine(line), {
+      expect(parseDietLine(line)).to.deep.equal({
         name: 'Flaxseed',
         count: 1,
         calories: 200,
@@ -123,7 +124,7 @@ describe('parseFoods:', () => {
     })
     it('Parses food with count', () => {
       const line = '2 Flaxseed (200)'
-      assert.deepEqual(parseDietLine(line), {
+      expect(parseDietLine(line)).to.deep.equal({
         name: 'Flaxseed',
         count: 2,
         calories: 200,
@@ -132,7 +133,7 @@ describe('parseFoods:', () => {
     })
     it('Parses food with count and protein', () => {
       const line = '2 Flaxseed (200), 48g'
-      assert.deepEqual(parseDietLine(line), {
+      expect(parseDietLine(line)).to.deep.equal({
         name: 'Flaxseed',
         count: 2,
         calories: 200,

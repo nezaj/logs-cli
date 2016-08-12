@@ -1,4 +1,4 @@
-import assert from 'assert';
+import {expect} from 'chai';
 
 import {isDateBetween} from '../src/utils';
 
@@ -8,13 +8,13 @@ describe('utils:', () => {
       const check = new Date('01/02/16');
       const start = new Date('01/01/16');
       const end = new Date('01/01/17');
-      assert.ok(isDateBetween(check, start, end));
+      expect(isDateBetween(check, start, end)).to.be.true;
     })
     it('returns false if date is not between start and end', () => {
       const check = new Date('01/02/17');
       const start = new Date('01/01/16');
       const end = new Date('01/01/17');
-      assert.ok(!isDateBetween(check, start, end));
+      expect(isDateBetween(check, start, end)).to.be.false;
     })
   });
 });
