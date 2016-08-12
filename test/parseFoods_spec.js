@@ -147,22 +147,51 @@ describe('parseFoods:', () => {
       const logBlock = '### Day 168 (Sunday): 07/17/16\nWeight:\n*'
       const start = new Date('01/01/16');
       const end = new Date('01/01/17');
-      assert.ok(shouldIncludeBlock(logBlock, start, end));
+      expect(shouldIncludeBlock(logBlock, start, end)).to.be.true;
     })
     it('returns false if block is not between start and end', () => {
       const logBlock = '### Day 168 (Sunday): 07/17/17\nWeight:\n*'
       const start = new Date('01/01/16');
       const end = new Date('01/01/17');
-      assert.ok(!shouldIncludeBlock(logBlock, start, end));
+      expect(shouldIncludeBlock(logBlock, start, end)).to.be.false;
     })
   });
 
   describe('sortFoods --', () => {
     it('sorts by total calories', () => {
-      const logBlock = '### Day 168 (Sunday): 07/17/16\nWeight:\n*'
-      const start = new Date('01/01/16');
-      const end = new Date('01/01/17');
-      assert.ok(shouldIncludeBlock(logBlock, start, end));
+      const foods = {
+        'Fruit Bars': { name: 'Fruit Bars', count: 4, calories: 450, protein: 0 },
+        'Fruit Juice': { name: 'Fruit Juice', count: 1, calories: 280, protein: 0 },
+        OJ: { name: 'OJ', count: 1, calories: 240, protein: 0 },
+        'FF Cottage Cheese': { name: 'FF Cottage Cheese', count: 1, calories: 240, protein: 0 },
+        Flaxseed: { name: 'Flaxseed', count: 2, calories: 400, protein: 69 },
+        Apple: { name: 'Apple', count: 3, calories: 280, protein: 0 },
+        Coronita: { name: 'Coronita', count: 1, calories: 80, protein: 0 },
+        Wine: { name: 'Wine', count: 1, calories: 120, protein: 0 },
+        Carrots: { name: 'Carrots', count: 2, calories: 250, protein: 42 },
+        Fruit: { name: 'Fruit', count: 1, calories: 150, protein: 0 },
+        Oatmeal: { name: 'Oatmeal', count: 1, calories: 340, protein: 0 },
+        'Protein Powder': { name: 'Protein Powder', count: 1, calories: 120, protein: 25 },
+        Mandarins: { name: 'Mandarins', count: 2, calories: 280, protein: 0 },
+        'Turkey Balls': { name: 'Turkey Balls', count: 2, calories: 700, protein: 42 }
+      };
+
+      expect(sortFoods(foods)).to.deep.equal([
+        { name: 'Turkey Balls', count: 2, calories: 700, protein: 42 },
+        { name: 'Fruit Bars', count: 4, calories: 450, protein: 0 },
+        { name: 'Flaxseed', count: 2, calories: 400, protein: 69 },
+        { name: 'Oatmeal', count: 1, calories: 340, protein: 0 },
+        { name: 'Apple', count: 3, calories: 280, protein: 0 },
+        { name: 'Fruit Juice', count: 1, calories: 280, protein: 0 },
+        { name: 'Mandarins', count: 2, calories: 280, protein: 0 },
+        { name: 'Carrots', count: 2, calories: 250, protein: 42 },
+        { name: 'FF Cottage Cheese', count: 1, calories: 240, protein: 0 },
+        { name: 'OJ', count: 1, calories: 240, protein: 0 },
+        { name: 'Fruit', count: 1, calories: 150, protein: 0 },
+        { name: 'Protein Powder', count: 1, calories: 120, protein: 25 },
+        { name: 'Wine', count: 1, calories: 120, protein: 0 },
+        { name: 'Coronita', count: 1, calories: 80, protein: 0 }
+      ]);
     })
   });
 });
