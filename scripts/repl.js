@@ -1,24 +1,33 @@
 /* Bootstrapped repl for rapid prototyping */
 import repl from 'repl';
 
+// Common imports I seem to use a lot
+import fs from 'fs';
+import path from 'path';
+
 // Customize repl context
 // ---------------------------------------------------------------------------
-import program from 'commander'
+import {parseMantra} from '../src/parseMantra';
 
-program
-  .description('Output table of foods from fitness logs')
-  .usage('babel-node scripts/parseFoods.js <logFile> [options]')
-  .option('-l, --last <date>', 'last date')
-  .option('-d, --days <int>', '# of days to look back, defaults to 6', 6)
-  .parse(process.argv)
+const rootPath = path.join(__dirname, '..');
+const mantraInPath = path.join(rootPath, 'test/data/mantra.md');
+const mantra = parseMantra(mantraInPath)
 
-let endDate = program.last && new Date(program.last) || new Date();
-let startDate = new Date().setDate(endDate.getDate() - program.days)
-endDate.setHours(0, 0, 0, 0)
-startDate.setHours(0, 0, 0, 0)
+const logBlock = '' +
+  ' (Friday): 07/29/16\n' +
+  'Mantra:\n' +
+  '* Woke up Early   : N\n' +
+  '* Solid Exercise  : N\n' +
+  '* Did Good Work   : Y\n' +
+  '* Under 2000      : Y\n' +
+  '\n' +
+  'Notes:\n' +
+  '* Getting up was rough, missed workout again\n' +
+  '\n'
 
 function initializeContext(context) {
-  context.x = program;
+  context.x = mantra;
+  context.lb = logBlock;
 }
 
 // Start repl

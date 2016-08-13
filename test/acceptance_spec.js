@@ -4,6 +4,7 @@ import path from 'path';
 import {expect} from 'chai';
 
 import {parseFoods} from '../src/parseFoods';
+import {parseMantra} from '../src/parseMantra';
 
 const rootPath = path.join(__dirname, '..');
 

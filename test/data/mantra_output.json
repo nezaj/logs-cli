@@ -15,12 +15,12 @@
         {"date": "07/28/16", "flag": "Y"}
     ],
     "notes": {
-        "07/30/16": [],
-        "07/29/16": ["Getting up was rough, missed workout again"],
-        "07/28/16": [
+        {"date": "07/30/16", "values": []},
+        {"date": "07/29/16", "values": ["Getting up was rough, missed workout again"]},
+        {"date": ""07/28/16", "values": [
             "Woke up late due to going to bed late",
             "Ended up skipping morning workout again"
-        ]
+        ]}
     },
     "under_2000": [
         {"date": "07/30/16", "flag": "Y"},
