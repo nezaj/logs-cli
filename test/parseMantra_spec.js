@@ -5,6 +5,7 @@ import {
   extractMantraDate,
   extractMantraInfo,
   extractMantraNotes,
+  nextMantra,
   parseMantraLine
 } from '../src/parseMantra';
 
@@ -93,6 +94,44 @@ describe('parseMantra:', () => {
       expect(extractMantraNotes(logBlock)).to.deep.equal([
         'Getting up was rough, missed workout again'
       ])
+    });
+  });
+
+  describe('nextMantra --', () => {
+    it('adds mantra to an empty object', () => {
+      const entry = {
+        date: '07/29/16',
+        mantra: {
+          'Woke up Early': 'N',
+          'Solid Exercise': 'N',
+          'Did Good Work': 'Y',
+          'Under 2000': 'Y',
+          'Clean': 'N'
+        },
+        notes: ['Getting up was rough, missed workout again']
+      }
+
+      expect(nextMantra({}, entry)).to.deep.equal({
+        "cleans": [
+          {"date": "07/29/16", "flag": "N"},
+        ],
+        "exercise": [
+          {"date": "07/29/16", "flag": "N"},
+        ],
+        "good_work": [
+          {"date": "07/29/16", "flag": "Y"},
+        ],
+        "notes": [{
+          "date": "07/29/16",
+          "values": ["Getting up was rough, missed workout again"]
+        }],
+        "under_2000": [
+          {"date": "07/29/16", "flag": "Y"},
+        ],
+        "wake_up": [
+          {"date": "07/29/16", "flag": "N"},
+        ]
+      });
     });
   });
   describe('parseMantraLine --', () => {

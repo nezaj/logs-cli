@@ -3,10 +3,20 @@ import fs from 'fs';
 // Main methods
 // ---------------------------------------------------------------------------
 export function parseMantra(filePath) {
-  return mantra = fs.readFileSync(mantraInPath, 'utf8')
+  return fs.readFileSync(filePath, 'utf8')
     .split(/### Day \d+/).slice(1) // Identify mantra blocks
     .map(extractMantra)
-    // add reduce step
+    .reduce((a, b) => nextMantra(a, b), {})
+}
+
+// Constants
+// ---------------------------------------------------------------------------
+const MANTRA_MAP = {
+  'Woke up Early'   : 'wake_up',
+  'Solid Exercise'  : 'exercise',
+  'Did Good Work'   : 'good_work',
+  'Under 2000'      : 'under_2000',
+  'Clean'           : 'cleans'
 }
 
 // Helper methods
@@ -44,6 +54,32 @@ export function extractMantraNotes(logBlock) {
   return logBlock.slice(startIdx, endIdx).split('\n')
     .slice(1) // Remove header
     .map(x => x.replace('* ', '').trim())
+}
+
+export function nextMantra(mantra, entry) {
+  let clone = Object.assign({}, mantra);
+
+  // Initialize mantra object if it is empty
+  if (Object.keys(clone).length === 0) {
+    clone['wake_up'] = []
+    clone['cleans'] = []
+    clone['exercise'] = []
+    clone['good_work'] = []
+    clone['under_2000'] = []
+    clone['notes'] = []
+  }
+
+  // Add mantra keys
+  Object.keys(entry.mantra).forEach(x => {
+    const k = MANTRA_MAP[x]
+    const v = {'date': entry.date, 'flag': entry.mantra[x]}
+    clone[k].push(v)
+  })
+
+  // Add notes
+  clone.notes.push({'date': entry.date, 'values': entry.notes})
+
+  return clone
 }
 
 export function parseMantraLine(mantraLine) {

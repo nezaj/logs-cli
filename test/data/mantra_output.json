@@ -10,25 +10,23 @@
         {"date": "07/28/16", "flag": "N"}
     ],
     "good_work": [
-        {"date": "07/30/16"},
         {"date": "07/29/16", "flag": "Y"},
         {"date": "07/28/16", "flag": "Y"}
     ],
-    "notes": {
+    "notes": [
         {"date": "07/30/16", "values": []},
         {"date": "07/29/16", "values": ["Getting up was rough, missed workout again"]},
-        {"date": ""07/28/16", "values": [
+        {"date": "07/28/16", "values": [
             "Woke up late due to going to bed late",
             "Ended up skipping morning workout again"
         ]}
-    },
+    ],
     "under_2000": [
         {"date": "07/30/16", "flag": "Y"},
         {"date": "07/29/16", "flag": "Y"},
         {"date": "07/28/16", "flag": "Y"}
     ],
     "wake_up": [
-        {"date": "07/30/16"},
         {"date": "07/29/16", "flag": "N"},
         {"date": "07/28/16", "flag": "N"}
     ]

@@ -26,7 +26,7 @@ describe('acceptance:', () => {
       );
     })
   });
-  describe.skip('parseMantra --', () => {
+  describe('parseMantra --', () => {
     it('converts mantra log to json', () => {
       expect(parseMantra(mantraInPath)).to.deep.equal(require(mantraOutPath));
     })
