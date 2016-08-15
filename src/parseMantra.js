@@ -72,8 +72,11 @@ export function nextMantra(mantra, entry) {
   // Add mantra keys
   Object.keys(entry.mantra).forEach(x => {
     const k = MANTRA_MAP[x]
-    const v = {'date': entry.date, 'flag': entry.mantra[x]}
-    clone[k].push(v)
+    // Only push whitelisted keys
+    if (k) {
+      const v = {'date': entry.date, 'flag': entry.mantra[x]}
+      clone[k].push(v)
+    }
   })
 
   // Add notes
