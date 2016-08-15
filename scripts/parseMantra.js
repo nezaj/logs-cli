@@ -1,7 +1,6 @@
 #! /usr/bin/env babel-node
 /**
  * Script for generating raw mantra for visualization
- * TODO: Fix notes parsing, right now picking up weekly review
  */
 import fs from 'fs'
 
