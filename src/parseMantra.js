@@ -86,6 +86,10 @@ export function nextMantra(mantra, entry) {
 }
 
 export function parseMantraLine(mantraLine) {
+  // TODO: Sometimes there are failures here for forgetting to include things
+  // like "Notes" for clean days. Would be nice to catch these errors and
+  // print the line number of the daily file where it happens so I can easily
+  // fix it
   const [k, v] = mantraLine.split(':')
   return [k.replace('* ', '').trim(), v.trim()]
 }
